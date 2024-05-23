@@ -2,6 +2,17 @@
 Similar to the other data importing file, this one presumes a familiarity to dictionary architecture
 JSON file saving format
 '''
+import nmrpy
+import os
+from matplotlib import pyplot as plt
+import numpy as np
+import math
+import time
+from sklearn.decomposition import PCA
+import pandas as pd
+import matplotlib
+from matplotlib import colormaps
+
 def fidDictViz(dataDict):
     if type(dataDict) is dict:
         for i in dataDict.keys():
