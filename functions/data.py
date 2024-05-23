@@ -9,6 +9,7 @@ import numpy as np
 
 '''
 Please read the maine page or the readme for an explanation on the directory formatting requirements. Alternatively, check out the ipynb for examples
+This file is for processing files with arrays as checkpoints
 '''
 
 def import_data(file_dir, key):    
@@ -84,30 +85,3 @@ def preproc_max(dataDict):
             ppms.append(tTuple[1])
     return max_avgs, ppms
 
-def fidDictViz(dataDict):
-    if type(dataDict) is dict:
-        for i in dataDict.keys():
-            print(f"{i}:")
-            print(f"\t{fidDictViz(dataDict[i])}")
-    #type(a) is nmrpy.data_objects.FidArray
-        return ""
-    elif type(dataDict) is np.ndarray:
-        print(f"\t{dataDict}")
-        return ""
-    else:
-        if(len(dataDict.get_fids()) > 10):
-            print(f"\t{[f.id for f in dataDict.get_fids()[1:5]]}, {len(dataDict.get_fids()) - 4} keys omitted")
-        else:
-            print(f"\t{[f.id for f in dataDict.get_fids()]}")
-        return ""
-
-def plotmaxDict(dataDict, samples, cmap = 'viridis'):
-    map = matplotlib.colormaps[cmap].resampled(samples)
-    for i in dataDict.keys():
-        for j in dataDict[i]["max_avgs"].keys():
-            plt.plot(dataDict[i]["max_ppms"][j], dataDict[i]["max_avgs"][j],
-                     c = map.colors[samples - 1], 
-                     label = f"{i}_{j}")
-            samples -= 1
-    plt.legend()
-    plt.xlim(left = -1, right = 6)
