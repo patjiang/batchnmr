@@ -45,3 +45,24 @@ def plotmaxDict(dataDict, samples, cmap = 'viridis'):
             samples -= 1
     plt.legend()
     plt.xlim(left = -1, right = 6)
+
+def rem_invalid_shift_dict(shift, ppmSh):
+    nshift = dict(shift)
+    nppmSh = dict(ppmSh)
+    for i in shift.keys():
+        if type(nshift[i]) == str:
+            del nshift[i]
+            del nppmSh[i]
+    return nshift, nppmSh
+
+def calc_shift_dict(dataDict, verbose = True):
+    for i in dataDict.keys():
+        tshift = {}
+        tppms = {}
+        for j in dataDict[i]["max_avgs"].keys():
+            tTuple = (shift_tms(dataDict[i]["max_avgs"][j], dataDict[i]["max_ppms"][j], verbose = verbose))
+            tshift[j] = tTuple[0]
+            tppms[j] = tTuple[1]
+        tshift, tppms = rem_invalid_shift_dict(tshift, tppms)
+        dataDict[i]["shift"] = tshift
+        dataDict[i]["ppmSh"] = tppms
