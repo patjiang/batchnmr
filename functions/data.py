@@ -82,3 +82,17 @@ def preproc_max(dataDict):
             max_avgs.append(tTuple[0])
             ppms.append(tTuple[1])
     return max_avgs, ppms
+
+def fidDictViz(dataDict):
+    if type(dataDict) is dict:
+        for i in dataDict.keys():
+            print(f"{i}:")
+            print(f"\t{fidDictViz(dataDict[i])}")
+    #type(a) is nmrpy.data_objects.FidArray
+        return ""
+    else:
+        if(len(dataDict.get_fids()) > 10):
+            print(f"{[f.id for f in dataDict.get_fids()[1:5]]}, {len(dataDict.get_fids()) - 4} keys omitted")
+        else:
+            print([f.id for f in dataDict.get_fids()])
+        return ""
