@@ -1,15 +1,16 @@
-/*
+'''
 This file is mainly about importing data and preprocessing it through nmrpy; for the base functions, it is recommended that you check out their repo
 https://github.com/NMRPy/nmrpy
-*/
+'''
 
 import nmrpy
 import time
 import numpy as np
 
-/*
+'''
 Please read the maine page or the readme for an explanation on the directory formatting requirements. Alternatively, check out the ipynb for examples
-*/
+'''
+
 def import_data(file_dir, key):    
     init_arr = os.listdir(f"./{file_dir}/")
 
