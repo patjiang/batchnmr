@@ -4,9 +4,15 @@ https://github.com/NMRPy/nmrpy
 '''
 
 import nmrpy
-import time
+import os
+from matplotlib import pyplot as plt
 import numpy as np
-
+import math
+import time
+from sklearn.decomposition import PCA
+import pandas as pd
+import matplotlib
+from matplotlib import colormaps
 '''
 Please read the maine page or the readme for an explanation on the directory formatting requirements. Alternatively, check out the ipynb for examples
 This file is for processing files with arrays as checkpoints
