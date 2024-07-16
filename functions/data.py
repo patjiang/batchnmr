@@ -1,3 +1,14 @@
+import nmrpy
+import os
+from matplotlib import pyplot as plt
+import numpy as np
+import math
+import time
+from sklearn.decomposition import PCA
+import pandas as pd
+import matplotlib
+from matplotlib import colormaps
+
 def import_data(file_dir, key):    
     init_arr = os.listdir(f"./{file_dir}/")
 
