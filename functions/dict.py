@@ -53,7 +53,47 @@ def plotmaxDict(dataDict, samples, cmap = 'viridis'):
             counter += 1
     plt.legend()
     plt.xlim(left = -1, right = 6)
+    
+def shift_lip(fid_arr, ppm, verbose):
+    pos = np.where(fid_arr == max(fid_arr))
+    top = np.where((ppm == 8 + min([abs(x - 8) for x in ppm])) | (ppm == 8 - min([abs(x - 8) for x in ppm])))
+    shift = True
+    if(pos != top):
+        if verbose:
+            print(f"\tPosition Not Equal: \tfidpos: {pos[0][0]}\tppmpos: {top[0][0]}, \tppm value: {ppm[top[0][0]]}\n")
+    else:
+        if verbose:
+            print(f"\tPosition Equal: \tfidpos: {pos[0][0]}\tppmpos: {top[0][0]}, \tppm value: {ppm[top[0][0]]}\n")
+        shift = False
+        newFID = fid_arr
 
+    if shift:
+        if verbose:
+            print("\tShifting fid such that the highest frequency peak is also closest to 0\n")
+        diff = top[0][0] - pos[0][0]
+        if verbose:
+            print(f"\tShift amount = {diff}\n")
+        if (diff > (len(fid_arr)/10)):
+            if verbose:
+                print("\tToo much shift. Alignment Failed\n")
+            return "emp","ty"
+        else:
+            newFID = np.roll(fid_arr, diff)
+            shift_tms(newFID, ppm, verbose = verbose)
+
+    #set min ppm to 0
+    
+    ppmval = ppm[top]
+
+    new_ppm = ppm - ppmval
+
+    pos = np.where(newFID == max(newFID))
+    top = np.where((new_ppm == 8 + min([abs(x-8) for x in new_ppm])) | (new_ppm == 8 - min([abs(x-8) for x in new_ppm])))
+        
+    if verbose:
+        print(f"final values: \tfidpos: {pos[0][0]}\tppmpos: {top[0][0]}, \tppm value: {new_ppm[top[0][0]]}\n")
+    
+    return newFID, new_ppm
 
 def shift_tms(fid_arr, ppm, verbose):
     pos = np.where(fid_arr == max(fid_arr))
