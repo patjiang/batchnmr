@@ -19,7 +19,7 @@ file_dir/
 
 ## For Example:
 ```bash
-zt_visualize/
+brain_run_12-13-23/
 ├──  Brain organoid - Control
 ├    ├── lipid
 ├    └── water (2)
